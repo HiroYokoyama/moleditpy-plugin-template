@@ -25,8 +25,13 @@ Click **Use this template** on GitHub, then work through the checklist below.
    the same name in both workflow files and in the test imports.
 2. **Edit the metadata** at the top of `my_plugin/__init__.py`. `PLUGIN_VERSION`
    must be semver — the release workflow refuses a tag that does not match it.
-3. **Pick one entry point.** A plugin that defines `run()` is auto-registered in
-   the Plugin menu, so calling `add_menu_action()` as well produces a duplicate.
+3. **Pick one entry point.** The host adds its own **Plugins** menu entry for any
+   module that exposes `run()`, using `PLUGIN_NAME` — so a plugin that defines
+   both `run()` and `add_menu_action()` appears **twice**. This template opens its
+   dialog through a private `_open_dialog()` and registers the entry once in
+   `initialize()`; `tests/test_plugin.py` fails if a module-level `run` reappears.
+   If you want the automatic Plugins entry instead, name it `run()` and drop the
+   `add_menu_action()` call.
 4. **Write your plugin**, keeping `PLUGIN_DEPENDENCIES` to packages the host does
    *not* already ship (PyQt6, rdkit and numpy are the host's).
 5. **Run the tests** (below) and keep them green.

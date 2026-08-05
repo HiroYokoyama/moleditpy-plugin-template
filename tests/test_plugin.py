@@ -103,6 +103,23 @@ def test_supported_version_range_is_declared():
     assert "4" in plugin.PLUGIN_SUPPORTED_MOLEDITPY_VERSION
 
 
+def test_module_has_no_run_attribute():
+    """A module-level run() makes the host add its own Plugins-menu entry.
+
+    The host does this for any module exposing `run` (ui/plugin_menu_manager.py),
+    so keeping one alongside the entry registered in initialize() would show the
+    plugin twice.
+    """
+    assert not hasattr(plugin, "run"), (
+        "rename run() to something private, or the plugin appears twice in the menus"
+    )
+
+
+def test_module_has_no_autorun_attribute():
+    """autorun() executes at startup; this plugin has nothing to do there."""
+    assert not hasattr(plugin, "autorun")
+
+
 # -- registration ----------------------------------------------------------
 
 
