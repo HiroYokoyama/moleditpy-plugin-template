@@ -18,6 +18,34 @@ Click **Use this template** on GitHub, then work through the checklist below.
 > function — see step 3), and §8.1 on thread safety, since every callback runs on
 > the UI thread and a slow one freezes the whole application.
 
+## The easiest possible plugin
+
+You do not need this repository — or any repository — to write a plugin. Save
+this as `atom_counter.py` in your plugins directory
+(`%USERPROFILE%\.moleditpy\plugins` on Windows, `~/.moleditpy/plugins` on
+macOS/Linux) and restart MoleditPy:
+
+```python
+PLUGIN_NAME = "Atom Counter"
+PLUGIN_VERSION = "1.0.0"
+
+def run(main_window):
+    mol = main_window.current_mol
+    if mol is None:
+        main_window.statusBar().showMessage("No molecule loaded.", 3000)
+        return
+    main_window.statusBar().showMessage(f"Atoms: {mol.GetNumAtoms()}", 4000)
+```
+
+That is the whole plugin. The host sees `run()` and adds **Plugins → Atom
+Counter** for you, so there is no menu registration to write. It is the right
+shape for a one-action tool you only use yourself.
+
+Reach for this template when you want any of what that approach gives up: the
+stable `PluginContext` proxy instead of raw `main_window`, settings that survive
+a project reload, tests, a check against the host API, and a release other people
+can install. The rest of this README covers those.
+
 ## What you get
 
 | Path | What it is |
@@ -30,6 +58,58 @@ Click **Use this template** on GitHub, then work through the checklist below.
 | `.github/workflows/test.yml` | CI on Linux + Windows, Python 3.11 and 3.13 |
 | `.github/workflows/release.yml` | `v*.*.*` tag → zip → GitHub release |
 | `.moleditpy-api-allowlist` | Escape hatch for host attributes the checker cannot see |
+| `my_single_file_plugin.py` | The same plugin as a single file, at the root where that shape belongs |
+| `examples/single_file/` | The two workflow files a single-file plugin needs |
+
+## Single file or package?
+
+This template is a **package** (`my_plugin/` with an `__init__.py`), which is what
+you want once a plugin outgrows one screen of code: separate modules, importable
+helpers, and tests that mirror them.
+
+A **single `.py` file** is equally valid and is what most plugins in the registry
+are — MoleditPy loads a lone script dropped into the plugins directory exactly as
+it loads a package folder. Choose it for a one-action tool with no helper modules.
+
+**`my_single_file_plugin.py` at the root is a complete working one** — that is
+where the shape belongs, since the release workflow attaches the script itself.
+To use it: rename it, copy `examples/single_file/release.yml` and `test.yml` over
+the ones in `.github/workflows/` (see
+[the notes there](examples/single_file/README.md)), then delete `my_plugin/` and
+`examples/`.
+
+The example is covered by this repository's own tests, so it stays working.
+63 of the registry's 83 entries are single files today, including
+[`3d_molecule_on_2d`](https://github.com/HiroYokoyama/moleditpy_3d-molecule-on-2d),
+whose release workflow the example's is modelled on.
+
+Two differences worth knowing: a loose script has nowhere to keep a
+`settings.json` beside itself the way `SETTINGS_FILE` does here, so persist state
+through the save/load handlers; and keep the Qt import inside the function that
+builds the dialog, so importing the module never needs a GUI toolkit.
+
+<details>
+<summary>The workflow change, if you would rather edit yours by hand</summary>
+
+   ```yaml
+   - name: Create GitHub Release
+     env:
+       GH_TOKEN: ${{ github.token }}
+     run: |
+       gh release create "v$VERSION" \
+         --title "My Plugin $VERSION" \
+         --generate-notes \
+         "my_plugin.py"
+   ```
+
+   In `.github/workflows/test.yml`, change `--cov=my_plugin` to
+   `--cov=my_plugin.py`.
+
+</details>
+
+Registration accepts either form: the asset URL may end in `.py` or `.zip`, and
+the metadata constants are read the same way (for a zip, from the package's
+`__init__.py`).
 
 ## Getting started
 
@@ -49,7 +129,18 @@ Click **Use this template** on GitHub, then work through the checklist below.
    keeping `PLUGIN_DEPENDENCIES` to packages the host does *not* already ship
    (PyQt6, rdkit and numpy are the host's). Move anything slow off the UI thread
    (manual §8.1) — a blocking callback freezes the whole application.
-5. **Run the tests** (below) and keep them green.
+5. **Delete what you are not using.** The template ships both shapes and both
+   sets of examples, so a copy always has spare parts:
+
+   | Building a package | Building a single file |
+   |---|---|
+   | delete `examples/` | delete `my_plugin/` |
+   | delete `my_single_file_plugin.py` and `tests/test_single_file_example.py` | copy the two workflows from `examples/single_file/` over `.github/workflows/`, then delete `my_plugin/`, `examples/` and `tests/test_dialog.py` |
+
+   Also strip the parts of `README.md` that describe the shape you dropped, and
+   replace this file's content with your own — a released plugin's README is what
+   users see in the Plugin Manager.
+6. **Run the tests** (below) and keep them green.
 
 ```bash
 python -m pytest tests/ -v
