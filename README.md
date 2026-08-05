@@ -6,6 +6,18 @@ check against the host, and a tag-driven release workflow.
 
 Click **Use this template** on GitHub, then work through the checklist below.
 
+> **Read the [Plugin Development Manual (V4)](https://github.com/HiroYokoyama/python_molecular_editor/blob/main/docs/PLUGIN_DEVELOPMENT_MANUAL_V4.md) first**
+> ([rendered version](https://hiroyokoyama.github.io/python_molecular_editor/docs/PLUGIN_DEVELOPMENT_MANUAL_V4.html)).
+> It is the reference for the whole `PluginContext` API — every menu, export,
+> analysis, file-opener and 3D-style hook, session persistence, and the thread
+> rules. This template only demonstrates a small slice of it, and it cannot tell
+> you which hook suits your plugin.
+>
+> Worth reading before you start: §7 on the legacy `run()` / `autorun()` entry
+> points (which is why this template opens its dialog through a private
+> function — see step 3), and §8.1 on thread safety, since every callback runs on
+> the UI thread and a slow one freezes the whole application.
+
 ## What you get
 
 | Path | What it is |
@@ -32,8 +44,11 @@ Click **Use this template** on GitHub, then work through the checklist below.
    `initialize()`; `tests/test_plugin.py` fails if a module-level `run` reappears.
    If you want the automatic Plugins entry instead, name it `run()` and drop the
    `add_menu_action()` call.
-4. **Write your plugin**, keeping `PLUGIN_DEPENDENCIES` to packages the host does
-   *not* already ship (PyQt6, rdkit and numpy are the host's).
+4. **Write your plugin** against the
+   [Plugin Development Manual](https://github.com/HiroYokoyama/python_molecular_editor/blob/main/docs/PLUGIN_DEVELOPMENT_MANUAL_V4.md),
+   keeping `PLUGIN_DEPENDENCIES` to packages the host does *not* already ship
+   (PyQt6, rdkit and numpy are the host's). Move anything slow off the UI thread
+   (manual §8.1) — a blocking callback freezes the whole application.
 5. **Run the tests** (below) and keep them green.
 
 ```bash
