@@ -20,6 +20,7 @@ PLUGIN_DESCRIPTION = "One sentence describing what the plugin does."
 PLUGIN_CATEGORY = "Utility"
 PLUGIN_TAGS = ["Utility"]  # keep it to one or two existing registry tags
 PLUGIN_DEPENDENCIES = []  # pip packages beyond the host; PyQt6/rdkit/numpy are the host's
+PLUGIN_OPTIONAL_DEPENDENCIES = []  # extra-feature packages behind a guarded import
 PLUGIN_SUPPORTED_MOLEDITPY_VERSION = ">=4.0.0, <5.0.0"
 # Declare this only when the plugin genuinely cannot run somewhere:
 # PLUGIN_SUPPORTED_OS = ["Windows", "macOS", "Linux", "WSL"]

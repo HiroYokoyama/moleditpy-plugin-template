@@ -90,8 +90,10 @@ def test_version_is_semver():
 
 def test_dependencies_are_a_list():
     assert isinstance(plugin.PLUGIN_DEPENDENCIES, list)
+    assert isinstance(plugin.PLUGIN_OPTIONAL_DEPENDENCIES, list)
     for name in ("PyQt6", "rdkit", "numpy"):
         assert name not in plugin.PLUGIN_DEPENDENCIES, f"{name} is provided by the host"
+        assert name not in plugin.PLUGIN_OPTIONAL_DEPENDENCIES, f"{name} is provided by the host"
 
 
 def test_tags_are_a_short_list():

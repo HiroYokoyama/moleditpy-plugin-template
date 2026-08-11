@@ -18,6 +18,7 @@ PLUGIN_DESCRIPTION = "One sentence describing what the plugin does."
 PLUGIN_CATEGORY = "Utility"
 PLUGIN_TAGS = ["Utility"]
 PLUGIN_DEPENDENCIES = []
+PLUGIN_OPTIONAL_DEPENDENCIES = []
 PLUGIN_SUPPORTED_MOLEDITPY_VERSION = ">=4.0.0, <5.0.0"
 
 WINDOW_ID = "my_single_file_plugin_dialog"

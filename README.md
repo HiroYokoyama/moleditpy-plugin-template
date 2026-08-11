@@ -127,7 +127,8 @@ the metadata constants are read the same way (for a zip, from the package's
 4. **Write your plugin** against the
    [Plugin Development Manual](https://github.com/HiroYokoyama/python_molecular_editor/blob/main/docs/PLUGIN_DEVELOPMENT_MANUAL_V4.md),
    keeping `PLUGIN_DEPENDENCIES` to packages the host does *not* already ship
-   (PyQt6, rdkit and numpy are the host's). Move anything slow off the UI thread
+   (PyQt6, rdkit and numpy are the host's), and putting anything behind a
+   guarded import in `PLUGIN_OPTIONAL_DEPENDENCIES` instead. Move anything slow off the UI thread
    (manual §8.1) — a blocking callback freezes the whole application.
 5. **Delete what you are not using.** The template ships both shapes and both
    sets of examples, so a copy always has spare parts:
