@@ -91,7 +91,7 @@ def test_version_is_semver():
 def test_dependencies_are_a_list():
     assert isinstance(plugin.PLUGIN_DEPENDENCIES, list)
     assert isinstance(plugin.PLUGIN_OPTIONAL_DEPENDENCIES, list)
-    for name in ("PyQt6", "rdkit", "numpy"):
+    for name in ("PySide6", "rdkit", "numpy"):
         assert name not in plugin.PLUGIN_DEPENDENCIES, f"{name} is provided by the host"
         assert name not in plugin.PLUGIN_OPTIONAL_DEPENDENCIES, f"{name} is provided by the host"
 
@@ -102,7 +102,8 @@ def test_tags_are_a_short_list():
 
 
 def test_supported_version_range_is_declared():
-    assert "4" in plugin.PLUGIN_SUPPORTED_MOLEDITPY_VERSION
+    from packaging.specifiers import SpecifierSet
+    assert SpecifierSet(plugin.PLUGIN_SUPPORTED_MOLEDITPY_VERSION).contains("5.0.0a1", prereleases=True)
 
 
 def test_module_has_no_run_attribute():

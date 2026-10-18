@@ -1,4 +1,4 @@
-"""Dialog tests against real PyQt6, running offscreen.
+"""Dialog tests against real PySide6, running offscreen.
 
 The pattern to copy: build the dialog with fakes for the host callbacks, drive
 the widgets, and monkeypatch the modal dialogs so nothing blocks the run.
@@ -74,7 +74,7 @@ def test_missing_molecule_is_reported(qapp):
 
 
 def test_save_writes_the_file(dialog, tmp_path, monkeypatch):
-    from PyQt6.QtWidgets import QFileDialog, QMessageBox
+    from PySide6.QtWidgets import QFileDialog, QMessageBox
 
     target = tmp_path / "out.txt"
     monkeypatch.setattr(QFileDialog, "getSaveFileName", lambda *a, **k: (str(target), ""))
@@ -86,7 +86,7 @@ def test_save_writes_the_file(dialog, tmp_path, monkeypatch):
 
 
 def test_save_is_cancellable(dialog, tmp_path, monkeypatch):
-    from PyQt6.QtWidgets import QFileDialog
+    from PySide6.QtWidgets import QFileDialog
 
     monkeypatch.setattr(QFileDialog, "getSaveFileName", lambda *a, **k: ("", ""))
     dialog.save_text()
@@ -94,7 +94,7 @@ def test_save_is_cancellable(dialog, tmp_path, monkeypatch):
 
 
 def test_save_reports_an_error(dialog, tmp_path, monkeypatch):
-    from PyQt6.QtWidgets import QFileDialog, QMessageBox
+    from PySide6.QtWidgets import QFileDialog, QMessageBox
 
     seen = []
     monkeypatch.setattr(
