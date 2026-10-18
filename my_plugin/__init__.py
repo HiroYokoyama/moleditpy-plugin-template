@@ -14,7 +14,7 @@ import os
 # --------------------------------------------------------------------------
 
 PLUGIN_NAME = "My Plugin"
-PLUGIN_VERSION = "0.1.0"  # semver; the release tag must match (v0.1.0)
+PLUGIN_VERSION = "1.0.0a1"  # semver; the release tag must match (v0.1.0)
 PLUGIN_AUTHOR = "Your Name"
 PLUGIN_DESCRIPTION = "One sentence describing what the plugin does."
 PLUGIN_CATEGORY = "Utility"

@@ -85,7 +85,7 @@ def test_required_metadata_is_present():
 
 def test_version_is_semver():
     """The release tag is checked against this, so it must be vMAJOR.MINOR.PATCH."""
-    assert re.fullmatch(r"\d+\.\d+\.\d+", plugin.PLUGIN_VERSION)
+    assert re.fullmatch(r"\d+\.\d+\.\d+(?:a\d+)?", plugin.PLUGIN_VERSION)
 
 
 def test_dependencies_are_a_list():

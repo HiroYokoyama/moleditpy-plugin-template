@@ -12,7 +12,7 @@ import logging
 import os
 
 PLUGIN_NAME = "My Single File Plugin"
-PLUGIN_VERSION = "0.1.0"
+PLUGIN_VERSION = "1.0.0a1"
 PLUGIN_AUTHOR = "Your Name"
 PLUGIN_DESCRIPTION = "One sentence describing what the plugin does."
 PLUGIN_CATEGORY = "Utility"
