@@ -1,6 +1,6 @@
 # MoleditPy Plugin Template
 
-[![MoleditPy](https://img.shields.io/badge/MoleditPy->=4.0.0-3577F7)](https://github.com/HiroYokoyama/python_molecular_editor)
+[![MoleditPy](https://img.shields.io/badge/MoleditPy-5.x-3577F7)](https://github.com/HiroYokoyama/python_molecular_editor)
 
 A starting point for a **third-party [MoleditPy](https://github.com/HiroYokoyama/python_molecular_editor)
 plugin**: a working example plugin, a headless test suite, an API compatibility
