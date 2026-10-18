@@ -103,7 +103,10 @@ def test_tags_are_a_short_list():
 
 def test_supported_version_range_is_declared():
     from packaging.specifiers import SpecifierSet
-    assert SpecifierSet(plugin.PLUGIN_SUPPORTED_MOLEDITPY_VERSION).contains("5.0.0a1", prereleases=True)
+    supported = SpecifierSet(plugin.PLUGIN_SUPPORTED_MOLEDITPY_VERSION)
+    assert supported.contains("5.0.0")
+    assert not supported.contains("4.9.9")
+    assert not supported.contains("6.0.0")
 
 
 def test_module_has_no_run_attribute():
