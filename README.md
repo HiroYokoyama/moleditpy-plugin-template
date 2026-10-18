@@ -161,8 +161,8 @@ clones it for you.
 ## Releasing
 
 ```bash
-git tag v1.0.0a1        # must equal PLUGIN_VERSION
-git push origin v1.0.0a1
+git tag v0.2.0a1        # must equal PLUGIN_VERSION
+git push origin v0.2.0a1
 ```
 
 The workflow verifies the tag against `PLUGIN_VERSION`, zips the package
@@ -189,7 +189,7 @@ So, after your release is published:
 1. Open a **Request Plugin Registration / Update** issue on the registry repo:
    <https://github.com/HiroYokoyama/moleditpy-plugins/issues/new/choose>
 2. Fill in the release asset URL, e.g.
-   `https://github.com/<you>/<repo>/releases/download/v1.0.0a1/my_plugin_0.1.0.zip`,
+   `https://github.com/<you>/<repo>/releases/download/v0.2.0a1/my_plugin_0.1.0.zip`,
    and the asset's SHA-256 (the form asks for it, and registration verifies it):
    - PowerShell: `Get-FileHash ./my_plugin_0.1.0.zip -Algorithm SHA256`
    - bash: `shasum -a 256 my_plugin_0.1.0.zip`
