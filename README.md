@@ -213,5 +213,9 @@ granted the dispatch secret if you release often).
 
 ## Licence
 
-This template is GPL-3.0 (see [LICENSE](LICENSE)), matching the MoleditPy
+This template is LGPL-3.0-or-later (see [LICENSE](LICENSE)), matching the MoleditPy
 ecosystem. Replace it if your plugin uses a different licence.
+
+## Licensing scope
+
+First-party code in this migration is LGPL-3.0-or-later. See [LICENSE](LICENSE), [COPYING](COPYING) and [dependency/provenance terms](LICENSING.md). Third-party components and historical releases retain their own terms.

@@ -52,7 +52,7 @@ jobs:
 
       - name: Build release package
         run: |
-          cp README.md LICENSE my_plugin/
+          cp README.md LICENSE COPYING LICENSING.md my_plugin/
           zip -r "my_plugin_${VERSION}.zip" my_plugin/ \
             --exclude "*/__pycache__/*" "*/.git/*"
 
