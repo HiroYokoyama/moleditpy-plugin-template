@@ -1,6 +1,6 @@
 # MoleditPy Plugin Template
 
-[![MoleditPy](https://img.shields.io/badge/MoleditPy->=4.0.0-3577F7)](https://github.com/HiroYokoyama/python_molecular_editor)
+[![MoleditPy](https://img.shields.io/badge/MoleditPy-5.x-3577F7)](https://github.com/HiroYokoyama/python_molecular_editor)
 
 A starting point for a **third-party [MoleditPy](https://github.com/HiroYokoyama/python_molecular_editor)
 plugin**: a working example plugin, a headless test suite, an API compatibility
@@ -55,7 +55,7 @@ can install. The rest of this README covers those.
 | `my_plugin/__init__.py` | Metadata the registry reads, `initialize(context)`, and the three session handlers |
 | `my_plugin/main_dialog.py` | A small dialog wired the way the host expects |
 | `tests/test_plugin.py` | Metadata + registration tests (keep these — they catch the usual mistakes) |
-| `tests/test_dialog.py` | Real-PyQt6 dialog tests, offscreen |
+| `tests/test_dialog.py` | Real-PySide6 dialog tests, offscreen |
 | `tests/test_api.py` + `plugin_api_checker.py` | Fails if you touch a host attribute that does not exist |
 | `.github/workflows/test.yml` | CI on Linux + Windows, Python 3.11 and 3.13 |
 | `.github/workflows/release.yml` | `v*.*.*` tag → zip → GitHub release |
@@ -129,7 +129,7 @@ the metadata constants are read the same way (for a zip, from the package's
 4. **Write your plugin** against the
    [Plugin Development Manual](https://github.com/HiroYokoyama/python_molecular_editor/blob/main/docs/PLUGIN_DEVELOPMENT_MANUAL_V4.md),
    keeping `PLUGIN_DEPENDENCIES` to packages the host does *not* already ship
-   (PyQt6, rdkit and numpy are the host's), and putting anything behind a
+   (PySide6, rdkit and numpy are the host's), and putting anything behind a
    guarded import in `PLUGIN_OPTIONAL_DEPENDENCIES` instead. Move anything slow off the UI thread
    (manual §8.1) — a blocking callback freezes the whole application.
 5. **Delete what you are not using.** The template ships both shapes and both
@@ -152,7 +152,7 @@ python -m pytest tests/ -v
 To make the API check actually run, clone the main app next to your repo:
 
 ```bash
-git clone --depth 1 https://github.com/HiroYokoyama/python_molecular_editor.git ..
+git clone --depth 1 --branch "${MOLEDITPY_REF:-migrate/pyside6-without-openbabel}" https://github.com/HiroYokoyama/python_molecular_editor.git ..
 ```
 
 Without it that test **skips** rather than fails, which is easy to miss — CI
@@ -161,8 +161,8 @@ clones it for you.
 ## Releasing
 
 ```bash
-git tag v0.1.0        # must equal PLUGIN_VERSION
-git push origin v0.1.0
+git tag v0.2.0a1        # must equal PLUGIN_VERSION
+git push origin v0.2.0a1
 ```
 
 The workflow verifies the tag against `PLUGIN_VERSION`, zips the package
@@ -189,7 +189,7 @@ So, after your release is published:
 1. Open a **Request Plugin Registration / Update** issue on the registry repo:
    <https://github.com/HiroYokoyama/moleditpy-plugins/issues/new/choose>
 2. Fill in the release asset URL, e.g.
-   `https://github.com/<you>/<repo>/releases/download/v0.1.0/my_plugin_0.1.0.zip`,
+   `https://github.com/<you>/<repo>/releases/download/v0.2.0a1/my_plugin_0.1.0.zip`,
    and the asset's SHA-256 (the form asks for it, and registration verifies it):
    - PowerShell: `Get-FileHash ./my_plugin_0.1.0.zip -Algorithm SHA256`
    - bash: `shasum -a 256 my_plugin_0.1.0.zip`
@@ -213,5 +213,9 @@ granted the dispatch secret if you release often).
 
 ## Licence
 
-This template is GPL-3.0 (see [LICENSE](LICENSE)), matching the MoleditPy
+This template is LGPL-3.0-or-later (see [LICENSE](LICENSE)), matching the MoleditPy
 ecosystem. Replace it if your plugin uses a different licence.
+
+## Licensing scope
+
+First-party code in this migration is LGPL-3.0-or-later. See [LICENSE](LICENSE), [COPYING](COPYING) and [dependency/provenance terms](LICENSING.md). Third-party components and historical releases retain their own terms.

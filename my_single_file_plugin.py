@@ -12,14 +12,14 @@ import logging
 import os
 
 PLUGIN_NAME = "My Single File Plugin"
-PLUGIN_VERSION = "0.1.0"
+PLUGIN_VERSION = "0.2.0"
 PLUGIN_AUTHOR = "Your Name"
 PLUGIN_DESCRIPTION = "One sentence describing what the plugin does."
 PLUGIN_CATEGORY = "Utility"
 PLUGIN_TAGS = ["Utility"]
 PLUGIN_DEPENDENCIES = []
 PLUGIN_OPTIONAL_DEPENDENCIES = []
-PLUGIN_SUPPORTED_MOLEDITPY_VERSION = ">=4.0.0, <5.0.0"
+PLUGIN_SUPPORTED_MOLEDITPY_VERSION = ">=5.0.0, <6.0.0"
 
 WINDOW_ID = "my_single_file_plugin_dialog"
 
@@ -43,7 +43,7 @@ def build_text(settings) -> str:
 
 def _make_dialog(parent):
     """Build the dialog lazily so importing the module never needs Qt."""
-    from PyQt6.QtWidgets import (
+    from PySide6.QtWidgets import (
         QDialog,
         QDialogButtonBox,
         QFormLayout,

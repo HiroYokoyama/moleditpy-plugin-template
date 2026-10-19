@@ -43,7 +43,7 @@ def test_importing_it_needs_no_qt(example):
 def test_metadata_matches_the_registry_contract(example):
     for name in ("PLUGIN_NAME", "PLUGIN_VERSION", "PLUGIN_AUTHOR", "PLUGIN_DESCRIPTION"):
         assert getattr(example, name, "").strip()
-    assert re.fullmatch(r"\d+\.\d+\.\d+", example.PLUGIN_VERSION)
+    assert re.fullmatch(r"\d+\.\d+\.\d+(?:a\d+)?", example.PLUGIN_VERSION)
 
 
 def test_it_has_no_run_attribute(example):

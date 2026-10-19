@@ -85,13 +85,13 @@ def test_required_metadata_is_present():
 
 def test_version_is_semver():
     """The release tag is checked against this, so it must be vMAJOR.MINOR.PATCH."""
-    assert re.fullmatch(r"\d+\.\d+\.\d+", plugin.PLUGIN_VERSION)
+    assert re.fullmatch(r"\d+\.\d+\.\d+(?:a\d+)?", plugin.PLUGIN_VERSION)
 
 
 def test_dependencies_are_a_list():
     assert isinstance(plugin.PLUGIN_DEPENDENCIES, list)
     assert isinstance(plugin.PLUGIN_OPTIONAL_DEPENDENCIES, list)
-    for name in ("PyQt6", "rdkit", "numpy"):
+    for name in ("PySide6", "rdkit", "numpy"):
         assert name not in plugin.PLUGIN_DEPENDENCIES, f"{name} is provided by the host"
         assert name not in plugin.PLUGIN_OPTIONAL_DEPENDENCIES, f"{name} is provided by the host"
 
@@ -102,7 +102,11 @@ def test_tags_are_a_short_list():
 
 
 def test_supported_version_range_is_declared():
-    assert "4" in plugin.PLUGIN_SUPPORTED_MOLEDITPY_VERSION
+    from packaging.specifiers import SpecifierSet
+    supported = SpecifierSet(plugin.PLUGIN_SUPPORTED_MOLEDITPY_VERSION)
+    assert supported.contains("5.0.0")
+    assert not supported.contains("4.9.9")
+    assert not supported.contains("6.0.0")
 
 
 def test_module_has_no_run_attribute():
