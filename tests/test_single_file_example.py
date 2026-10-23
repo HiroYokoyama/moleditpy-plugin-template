@@ -41,7 +41,12 @@ def test_importing_it_needs_no_qt(example):
 
 
 def test_metadata_matches_the_registry_contract(example):
-    for name in ("PLUGIN_NAME", "PLUGIN_VERSION", "PLUGIN_AUTHOR", "PLUGIN_DESCRIPTION"):
+    for name in (
+        "PLUGIN_NAME",
+        "PLUGIN_VERSION",
+        "PLUGIN_AUTHOR",
+        "PLUGIN_DESCRIPTION",
+    ):
         assert getattr(example, name, "").strip()
     assert re.fullmatch(r"\d+\.\d+\.\d+(?:a\d+)?", example.PLUGIN_VERSION)
 
@@ -86,7 +91,14 @@ def test_release_workflow_targets_the_script():
     """The example workflow must attach the .py, not a zip that does not exist."""
     path = os.path.join(WORKFLOWS, "release.yml")
     text = open(path, encoding="utf-8").read()
-    assert "my_single_file_plugin.py" in text
+    import json
+
+    config = json.loads(
+        open(os.path.join(WORKFLOWS, "release-config.json"), encoding="utf-8").read()
+    )
+    assert "scripts/release_common.py publish" in text
+    assert config["source"] == "my_single_file_plugin.py"
+    assert config["assets"][0] == "my_single_file_plugin.py"
     # The word "zip" appears in a comment explaining there is nothing to zip;
     # what must not appear is an actual zip step or a .zip asset.
     assert ".zip" not in text
