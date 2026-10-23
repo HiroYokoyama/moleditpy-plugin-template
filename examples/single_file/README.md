@@ -36,3 +36,5 @@ is mechanical: move the file into a folder as `__init__.py` and split from there
 
 A real single-file plugin to compare against:
 [`3d_molecule_on_2d`](https://github.com/HiroYokoyama/moleditpy_3d-molecule-on-2d).
+
+Copy `release-config.json` from this directory to `scripts/release-config.json` together with this example workflow. Keep the tested `scripts/release_common.py` and its `common-tools.lock.json` from the template. The config attaches the single `.py` and license notices directly; it creates no ZIP or wheel.

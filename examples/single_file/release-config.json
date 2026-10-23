@@ -1,0 +1,10 @@
+{
+  "source": "my_single_file_plugin.py",
+  "title": "My Single File Plugin",
+  "assets": [
+    "my_single_file_plugin.py",
+    "LICENSE",
+    "COPYING",
+    "LICENSING.md"
+  ]
+}

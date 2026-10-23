@@ -1,0 +1,19 @@
+{
+  "source": "my_plugin/__init__.py",
+  "title": "My Plugin",
+  "package": "my_plugin",
+  "archive": "my_plugin_{version}.zip",
+  "assets": [
+    "my_plugin_{version}.zip"
+  ],
+  "include": [
+    "README.md",
+    "LICENSE",
+    "COPYING",
+    "LICENSING.md"
+  ],
+  "exclude": [
+    "*/__pycache__/*",
+    "*/.git/*"
+  ]
+}
