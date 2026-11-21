@@ -6,7 +6,7 @@ changes it needs.
 
 | File | What to do with it |
 |---|---|
-| `../../my_single_file_plugin.py` | The plugin itself, at the repository root where this shape belongs. Rename it. |
+| `../../my_single_file_plugin.py` | The plugin itself, at the repository root where this shape belongs. Rename it the same way as the package (lowercase snake_case from `PLUGIN_NAME`, a valid identifier): the file name without `.py` becomes the registry ID and the `moleditpy -r` name. |
 | `release.yml` | Copy to `.github/workflows/release.yml` — it attaches the `.py` instead of a zip. |
 | `test.yml` | Copy to `.github/workflows/test.yml` — same as the package version with the coverage target changed. |
 

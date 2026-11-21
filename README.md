@@ -116,7 +116,13 @@ the metadata constants are read the same way (for a zip, from the package's
 ## Getting started
 
 1. **Rename the package.** `my_plugin/` → your plugin's name (snake_case). Update
-   the same name in both workflow files and in the test imports.
+   the same name in both workflow files and in the test imports. This name
+   becomes the plugin's registry ID (derived from the release asset name, with
+   the version dropped) and the name `moleditpy -r NAME` runs, so take it from
+   `PLUGIN_NAME` in lowercase without abbreviating, and keep it a valid Python
+   identifier — no `-`, spaces or leading digit (`Bond Length Table` →
+   `bond_length_table/`). Choose it before the first release: renaming later
+   moves users' installed copies and their settings.
 2. **Edit the metadata** at the top of `my_plugin/__init__.py`. `PLUGIN_VERSION`
    must be semver — the release workflow refuses a tag that does not match it.
 3. **Pick one entry point.** The host adds its own **Plugins** menu entry for any
