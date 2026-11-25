@@ -22,6 +22,7 @@ PLUGIN_TAGS = ["Utility"]  # keep it to one or two existing registry tags
 PLUGIN_DEPENDENCIES = []  # pip packages beyond the host; PySide6/rdkit/numpy are the host's
 PLUGIN_OPTIONAL_DEPENDENCIES = []  # extra-feature packages behind a guarded import
 PLUGIN_SUPPORTED_MOLEDITPY_VERSION = ">=5.0.0, <6.0.0"
+PLUGIN_LICENSE = "LGPL-3.0-or-later"
 # Declare this only when the plugin genuinely cannot run somewhere:
 # PLUGIN_SUPPORTED_OS = ["Windows", "macOS", "Linux", "WSL"]
 
